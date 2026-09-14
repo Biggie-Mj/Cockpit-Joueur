@@ -1,24 +1,27 @@
-# Cockpit Joueur V0.1 — premier jet
+# Cockpit Joueur V0.2
 
-Prototype de console joueur D&D 5e, construit dans la continuité visuelle de Cockpit MJ et optimisé pour iPad paysage.
+Nouvelle maquette fonctionnelle de la console joueur, conçue comme application sœur de Cockpit MJ et optimisée pour iPad paysage.
 
-## Démo intégrée
-Wonq, Hadozee Barde 8 — Collège des Esprits. Les statistiques, ressources, aptitudes, sorts et inventaire viennent du dossier fourni par l'utilisateur. Les textes de règles du dossier sont des reformulations de table, conformément à sa page de références.
+## Écrans
 
-## Fonctionnalités du premier jet
-- Fiche : caractéristiques, sauvegardes, compétences, PV, CA, attaques et ressources.
-- Aptitudes : Hadozee, Barde, Collège des Esprits, Faveur des fées, Sage, Contes de l'Au-delà.
-- Sorts : emplacements interactifs, recherche, filtres et descriptions détaillées.
-- Inventaire adaptatif avec les PNG de catégories fournis par l'utilisateur.
-- Vue Équipés avec portrait importable, trois objets liés en surbrillance et couleur personnalisable.
-- Déplacement tactile des objets par glisser depuis leur icône entre sac et équipement.
-- Détail contextuel d'objet, modification, import et export JSON d'objet.
-- Argent modifiable.
-- Journal personnel avec ajout, modification, suppression et export texte.
-- Bibliothèque d'illustrations locale (IndexedDB), catégories personnalisables, déplacement, suppression, partage iPadOS et statut envoyé.
-- Jusqu'à 20 personnages sauvegardés/importés, avec export JSON.
-- Cinq thèmes d'ambiance.
-- PWA hors ligne / GitHub Pages root-safe.
+- **Fiche** : caractéristiques, sauvegardes, compétences, PV, combat et ressources.
+- **Aptitudes** : aptitudes regroupées par origine/classe/sous-classe/don/historique, avec référence rapide.
+- **Sorts** : emplacements interactifs, filtres, recherche et fiche détaillée.
+- **Inventaire** : écran séparé en deux, **Équipement à gauche / Possessions à droite**. Le PNG du personnage est placé sur le socle du fond d’écran, les trois objets liés à ses pieds, les autres équipements dessous. Les objets se déplacent par glisser-déposer.
+- **Journal** : notes éditables et export TXT.
+- **Illustrations** : bibliothèque locale avec catégories personnalisables, sélection, déplacement, suppression et partage iPad.
+
+## Fonds d’écran
+
+Sept fonds sont intégrés : Accueil, Fiche, Aptitudes, Sorts, Inventaire, Journal et Illustrations. Depuis le menu principal, chaque fond peut être remplacé par un PNG/JPEG externe ou réinitialisé au visuel d’origine. Les personnalisations sont enregistrées localement dans IndexedDB et ne sont pas incluses dans les exports JSON de personnage.
+
+## Personnages
+
+- Démo intégrée : **Wonq — Gardien des Absents**.
+- Jusqu’à 20 sauvegardes de personnages.
+- Import/export JSON.
+- Le portrait/PNG du personnage reste un média local indépendant des sauvegardes JSON.
 
 ## Déploiement
-Décompresser et placer tous les fichiers directement à la racine d'un dépôt GitHub Pages.
+
+Tous les fichiers sont root-safe : placer directement le contenu de l’archive à la racine d’un dépôt GitHub Pages.

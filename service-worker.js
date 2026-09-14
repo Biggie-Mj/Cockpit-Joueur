@@ -1,62 +1,14 @@
-const CACHE='cockpit-player-v0.1.0';
-const SHELL=['./','./index.html','./styles.css?v=0.1.0','./app.js?v=0.1.0','./manifest.webmanifest?v=0.1.0'];
-const MEDIA=[
-  './actualiser.png',
-  './anneau.png',
-  './annuler.png',
-  './apple-touch-icon.png',
-  './arme_a_feu.png',
-  './arme_a_feu_magique.png',
-  './arme_courante_a_distance.png',
-  './arme_courante_a_distance_magique.png',
-  './arme_courante_corps_a_corps.png',
-  './arme_courante_corps_a_corps_magique.png',
-  './arme_de_guerre_a_distance.png',
-  './arme_de_guerre_a_distance_magique.png',
-  './arme_de_guerre_corps_a_corps.png',
-  './arme_de_guerre_corps_a_corps_magique.png',
-  './armure_intermediaire.png',
-  './armure_intermediaire_magique.png',
-  './armure_legere.png',
-  './armure_legere_magique.png',
-  './armure_lourde.png',
-  './armure_lourde_magique.png',
-  './baguette_magique.png',
-  './baton_magique.png',
-  './bouclier.png',
-  './bouclier_magique.png',
-  './coche.png',
-  './cockpit-logo-source.png',
-  './consommable.png',
-  './crayon.png',
-  './d20.png',
-  './divers.png',
-  './favicon-32.png',
-  './fermer.png',
-  './fleche_bas.png',
-  './fleche_haut.png',
-  './grimoire.png',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-64.png',
-  './jouer.png',
-  './loupe.png',
-  './magie.png',
-  './menu-background-v1.jpg',
-  './menu_trois_points.png',
-  './munitions.png',
-  './munitions_magiques.png',
-  './objet_merveilleux.png',
-  './oeil.png',
-  './parchemin.png',
-  './plume.png',
-  './plus.png',
-  './potion.png',
-  './rouage.png',
-  './sauvegarde.png',
-  './sceptre_magique.png',
-  './wonq-demo.png'
+const CACHE='cockpit-player-v0.2-wallpapers-1';
+const CORE=[
+  './','./index.html','./styles.css?v=0.2.0','./app.js?v=0.2.0','./manifest.webmanifest?v=0.2.0',
+  './icon-64.png','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./favicon-32.png','./cockpit-logo-source.png','./wonq-demo.png',
+  './bg-accueil.jpg','./bg-fiche.jpg','./bg-aptitudes.jpg','./bg-sorts.jpg','./bg-inventaire.jpg','./bg-journal.jpg','./bg-illustrations.jpg',
+  './loupe.png','./menu_trois_points.png','./d20.png','./parchemin.png','./magie.png','./objet_merveilleux.png','./grimoire.png','./oeil.png','./jouer.png','./sauvegarde.png','./fleche_bas.png','./fleche_haut.png','./crayon.png','./fermer.png','./actualiser.png','./plus.png',
+  './divers.png','./consommable.png','./potion.png','./anneau.png','./baton_magique.png','./baguette_magique.png','./sceptre_magique.png','./arme_courante_corps_a_corps.png','./arme_courante_corps_a_corps_magique.png','./arme_courante_a_distance.png','./arme_courante_a_distance_magique.png','./arme_de_guerre_corps_a_corps.png','./arme_de_guerre_corps_a_corps_magique.png','./arme_de_guerre_a_distance.png','./arme_de_guerre_a_distance_magique.png','./arme_a_feu.png','./arme_a_feu_magique.png','./munitions.png','./munitions_magiques.png','./armure_legere.png','./armure_legere_magique.png','./armure_intermediaire.png','./armure_intermediaire_magique.png','./armure_lourde.png','./armure_lourde_magique.png','./bouclier.png','./bouclier_magique.png'
 ];
-self.addEventListener('install',event=>{event.waitUntil((async()=>{const c=await caches.open(CACHE);await c.addAll(SHELL);await Promise.all(MEDIA.map(x=>c.add(x).catch(()=>null)));await self.skipWaiting()})())});
-self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('cockpit-player-')&&k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim()})())});
-self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==self.location.origin)return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put('./index.html',copy));return r}).catch(()=>caches.match('./index.html')));return}event.respondWith(fetch(event.request).then(r=>{if(r&&r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(event.request,copy))}return r}).catch(()=>caches.match(event.request)))});
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  e.respondWith(caches.match(e.request).then(hit=>hit||fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match('./index.html'))));
+});

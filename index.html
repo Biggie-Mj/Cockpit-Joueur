@@ -7,20 +7,20 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Cockpit Joueur">
-  <title>Cockpit Joueur · V0.1</title>
-  <link rel="manifest" href="manifest.webmanifest?v=0.1.0">
+  <title>Cockpit Joueur · V0.2</title>
+  <link rel="manifest" href="manifest.webmanifest?v=0.2.0">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="stylesheet" href="styles.css?v=0.1.0">
+  <link rel="stylesheet" href="styles.css?v=0.2.0">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar glass-bar">
     <div class="brand-zone">
       <img src="icon-64.png" class="brand-icon" alt="">
-      <div class="brand-copy"><strong>COCKPIT</strong><span>JOUEUR · V0.1</span></div>
+      <div class="brand-copy"><strong>COCKPIT</strong><span>JOUEUR · V0.2</span></div>
     </div>
     <div class="character-title">
-      <span id="activeCharacterEyebrow">PERSONNAGE ACTIF</span>
+      <span>PERSONNAGE ACTIF</span>
       <strong id="activeCharacterName">Wonq</strong>
       <small id="activeCharacterMeta">Hadozee · Barde 8 · Collège des Esprits</small>
     </div>
@@ -30,14 +30,14 @@
     </div>
   </header>
 
-  <main id="sheetView" class="view-shell"></main>
-  <main id="featuresView" class="view-shell hidden"></main>
-  <main id="spellsView" class="view-shell hidden"></main>
-  <main id="inventoryView" class="view-shell hidden"></main>
-  <main id="journalView" class="view-shell hidden"></main>
-  <main id="illustrationsView" class="view-shell hidden"></main>
+  <main id="sheetView" class="view-shell screen-sheet"></main>
+  <main id="featuresView" class="view-shell screen-features hidden"></main>
+  <main id="spellsView" class="view-shell screen-spells hidden"></main>
+  <main id="inventoryView" class="view-shell screen-inventory hidden"></main>
+  <main id="journalView" class="view-shell screen-journal hidden"></main>
+  <main id="illustrationsView" class="view-shell screen-illustrations hidden"></main>
 
-  <nav class="bottom-nav" aria-label="Navigation principale">
+  <nav class="bottom-nav glass-bar" aria-label="Navigation principale">
     <button class="nav-btn active" data-view="sheet"><span><img src="d20.png" alt=""></span><b>FICHE</b></button>
     <button class="nav-btn" data-view="features"><span><img src="parchemin.png" alt=""></span><b>APTITUDES</b></button>
     <button class="nav-btn" data-view="spells"><span><img src="magie.png" alt=""></span><b>SORTS</b></button>
@@ -47,31 +47,41 @@
   </nav>
 
   <div id="homeOverlay" class="home-overlay show" aria-hidden="false">
-    <div class="home-backdrop"></div>
-    <section class="home-card">
-      <div class="home-brand">
-        <img src="cockpit-logo-source.png" alt="Cockpit">
-        <div><span class="eyebrow">CONSOLE JOUEUR</span><h1>Cockpit Joueur</h1><p>Fiche, ressources, sorts, inventaire, notes et aides visuelles.</p></div>
+    <div id="homeBackdrop" class="home-backdrop"></div>
+    <section class="home-shell">
+      <div class="home-hero glass-panel">
+        <div class="home-brand">
+          <img src="cockpit-logo-source.png" alt="Cockpit">
+          <div><span class="eyebrow">CONSOLE JOUEUR</span><h1>Cockpit Joueur</h1><p>Une console personnelle pour jouer, gérer et conserver tout ce qui concerne ton personnage.</p></div>
+        </div>
+        <div class="home-hero-actions">
+          <button id="btnResume" class="primary big"><img src="jouer.png" alt=""> Reprendre <span id="resumeName">Wonq</span></button>
+          <button id="btnCloseHome" class="ghost big">Ouvrir la console</button>
+        </div>
+        <div id="homeQuickSummary" class="home-quick-summary"></div>
       </div>
-      <div class="home-primary-actions">
-        <button id="btnResume" class="primary big"><img src="jouer.png" alt=""> Reprendre <span id="resumeName">Wonq</span></button>
-        <button id="btnCloseHome" class="ghost big">Ouvrir la console</button>
-      </div>
-      <div class="home-grid">
-        <section class="home-section">
-          <div class="section-head"><div><span class="eyebrow">PERSONNAGES</span><h2>Préparations sauvegardées</h2></div><span id="characterSlotCount" class="counter-pill">0 / 20</span></div>
+
+      <div class="home-columns">
+        <section class="home-section glass-panel">
+          <div class="section-head"><div><span class="eyebrow">PERSONNAGES</span><h2>Personnages sauvegardés</h2></div><span id="characterSlotCount" class="counter-pill">0 / 20</span></div>
           <div class="slot-toolbar">
-            <button id="btnSaveCharacter" class="primary"><img src="sauvegarde.png" alt=""> Sauvegarder le personnage</button>
+            <button id="btnSaveCharacter" class="primary"><img src="sauvegarde.png" alt=""> Sauvegarder l’état actuel</button>
             <button id="btnImportCharacter" class="violet"><img src="fleche_bas.png" alt=""> Importer</button>
           </div>
           <div id="characterSlots" class="character-slots"></div>
         </section>
-        <section class="home-section compact-section">
+
+        <section class="home-section glass-panel compact-section">
           <div class="section-head"><div><span class="eyebrow">AMBIANCE</span><h2>Schéma de couleurs</h2></div></div>
           <div id="themeChoices" class="theme-choices"></div>
-          <p class="home-note">Le thème est local à cet appareil et ne modifie pas les données du personnage.</p>
+          <p class="home-note">Le thème reste local à cet appareil.</p>
         </section>
       </div>
+
+      <section class="home-section glass-panel backgrounds-section">
+        <div class="section-head"><div><span class="eyebrow">FONDS D’ÉCRAN</span><h2>Illustrations de chaque écran</h2><p>Les fonds intégrés peuvent être remplacés par n’importe quel PNG ou JPEG de ton choix.</p></div></div>
+        <div id="backgroundRows" class="background-rows"></div>
+      </section>
     </section>
   </div>
 
@@ -93,7 +103,7 @@
         <label class="span2">Résumé<textarea name="summary" rows="2"></textarea></label>
         <label class="span2">Effet / description<textarea name="description" rows="7"></textarea></label>
       </div>
-      <div class="modal-actions"><button type="button" id="btnDeleteItem" class="danger">Supprimer</button><span></span><button type="button" class="ghost" data-close="itemEditorDialog">Annuler</button><button type="submit" class="primary">Enregistrer</button></div>
+      <div class="modal-actions"><button type="button" id="btnDeleteItem" class="danger">Supprimer</button><span></span><button type="button" id="btnExportItem" class="violet"><img src="fleche_haut.png" alt=""> Exporter</button><button type="submit" class="primary">Enregistrer</button></div>
     </form>
   </dialog>
 
@@ -101,9 +111,9 @@
     <form id="equipmentSettingsForm">
       <div class="modal-head"><div><span class="eyebrow">ÉQUIPEMENT</span><h2>Apparence</h2></div><button type="button" class="icon-button small" data-close="equipmentSettingsDialog"><img src="fermer.png" alt=""></button></div>
       <div class="settings-stack">
-        <label>Couleur de surbrillance liée<input name="attuneColor" type="color" value="#c69a55"></label>
-        <button type="button" id="btnImportPortrait" class="violet"><img src="fleche_bas.png" alt=""> Importer une illustration PNG/JPEG</button>
-        <button type="button" id="btnResetPortrait" class="ghost"><img src="actualiser.png" alt=""> Revenir au portrait de démonstration</button>
+        <label>Couleur de surbrillance<input name="attuneColor" type="color" value="#c69a55"></label>
+        <button type="button" id="btnImportPortrait" class="violet"><img src="fleche_bas.png" alt=""> Importer le PNG/JPEG du personnage</button>
+        <button type="button" id="btnResetPortrait" class="ghost"><img src="actualiser.png" alt=""> Réinitialiser l’illustration</button>
       </div>
       <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="equipmentSettingsDialog">Annuler</button><button type="submit" class="primary">Appliquer</button></div>
     </form>
@@ -111,9 +121,10 @@
 
   <dialog id="noteEditorDialog" class="modal wide-modal">
     <form id="noteEditorForm">
-      <div class="modal-head"><div><span class="eyebrow">JOURNAL</span><h2>Nouvelle note</h2></div><button type="button" class="icon-button small" data-close="noteEditorDialog"><img src="fermer.png" alt=""></button></div>
-      <div class="form-grid two"><label>Catégorie<select name="type"><option value="note">Note</option><option value="quest">Quête</option><option value="npc">PNJ</option><option value="place">Lieu</option><option value="clue">Indice</option></select></label><label>Titre<input name="title" placeholder="Facultatif"></label><label class="span2">Texte<textarea name="text" rows="8" required></textarea></label></div>
-      <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="noteEditorDialog">Annuler</button><button type="submit" class="primary">Ajouter</button></div>
+      <div class="modal-head"><div><span class="eyebrow">JOURNAL</span><h2>Note</h2></div><button type="button" class="icon-button small" data-close="noteEditorDialog"><img src="fermer.png" alt=""></button></div>
+      <input type="hidden" name="id">
+      <div class="form-grid two"><label>Catégorie<select name="type"><option value="note">Note</option><option value="quest">Quête</option><option value="npc">PNJ</option><option value="place">Lieu</option><option value="clue">Indice</option><option value="memory">Souvenir</option></select></label><label>Titre<input name="title" placeholder="Facultatif"></label><label class="span2">Texte<textarea name="text" rows="8" required></textarea></label></div>
+      <div class="modal-actions"><button type="button" id="btnDeleteNote" class="danger">Supprimer</button><span></span><button type="button" class="ghost" data-close="noteEditorDialog">Annuler</button><button type="submit" class="primary">Enregistrer</button></div>
     </form>
   </dialog>
 
@@ -148,7 +159,8 @@
   <input id="itemImportFile" type="file" accept=".json,application/json" hidden>
   <input id="portraitImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" hidden>
   <input id="illustrationImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden>
+  <input id="backgroundImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" hidden>
 
-  <script src="app.js?v=0.1.0"></script>
+  <script src="app.js?v=0.2.0"></script>
 </body>
 </html>
