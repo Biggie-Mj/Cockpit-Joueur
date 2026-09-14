@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr" data-theme="emerald">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#071713">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Cockpit Joueur">
+  <title>Cockpit Joueur · V0.1</title>
+  <link rel="manifest" href="manifest.webmanifest?v=0.1.0">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="stylesheet" href="styles.css?v=0.1.0">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-zone">
+      <img src="icon-64.png" class="brand-icon" alt="">
+      <div class="brand-copy"><strong>COCKPIT</strong><span>JOUEUR · V0.1</span></div>
+    </div>
+    <div class="character-title">
+      <span id="activeCharacterEyebrow">PERSONNAGE ACTIF</span>
+      <strong id="activeCharacterName">Wonq</strong>
+      <small id="activeCharacterMeta">Hadozee · Barde 8 · Collège des Esprits</small>
+    </div>
+    <div class="top-actions">
+      <button id="btnGlobalSearch" class="icon-button" title="Rechercher"><img src="loupe.png" alt=""></button>
+      <button id="btnHome" class="icon-button" title="Menu principal"><img src="menu_trois_points.png" alt=""></button>
+    </div>
+  </header>
+
+  <main id="sheetView" class="view-shell"></main>
+  <main id="featuresView" class="view-shell hidden"></main>
+  <main id="spellsView" class="view-shell hidden"></main>
+  <main id="inventoryView" class="view-shell hidden"></main>
+  <main id="journalView" class="view-shell hidden"></main>
+  <main id="illustrationsView" class="view-shell hidden"></main>
+
+  <nav class="bottom-nav" aria-label="Navigation principale">
+    <button class="nav-btn active" data-view="sheet"><span><img src="d20.png" alt=""></span><b>FICHE</b></button>
+    <button class="nav-btn" data-view="features"><span><img src="parchemin.png" alt=""></span><b>APTITUDES</b></button>
+    <button class="nav-btn" data-view="spells"><span><img src="magie.png" alt=""></span><b>SORTS</b></button>
+    <button class="nav-btn" data-view="inventory"><span><img src="objet_merveilleux.png" alt=""></span><b>INVENTAIRE</b></button>
+    <button class="nav-btn" data-view="journal"><span><img src="grimoire.png" alt=""></span><b>JOURNAL</b></button>
+    <button class="nav-btn" data-view="illustrations"><span><img src="oeil.png" alt=""></span><b>ILLUSTRATIONS</b></button>
+  </nav>
+
+  <div id="homeOverlay" class="home-overlay show" aria-hidden="false">
+    <div class="home-backdrop"></div>
+    <section class="home-card">
+      <div class="home-brand">
+        <img src="cockpit-logo-source.png" alt="Cockpit">
+        <div><span class="eyebrow">CONSOLE JOUEUR</span><h1>Cockpit Joueur</h1><p>Fiche, ressources, sorts, inventaire, notes et aides visuelles.</p></div>
+      </div>
+      <div class="home-primary-actions">
+        <button id="btnResume" class="primary big"><img src="jouer.png" alt=""> Reprendre <span id="resumeName">Wonq</span></button>
+        <button id="btnCloseHome" class="ghost big">Ouvrir la console</button>
+      </div>
+      <div class="home-grid">
+        <section class="home-section">
+          <div class="section-head"><div><span class="eyebrow">PERSONNAGES</span><h2>Préparations sauvegardées</h2></div><span id="characterSlotCount" class="counter-pill">0 / 20</span></div>
+          <div class="slot-toolbar">
+            <button id="btnSaveCharacter" class="primary"><img src="sauvegarde.png" alt=""> Sauvegarder le personnage</button>
+            <button id="btnImportCharacter" class="violet"><img src="fleche_bas.png" alt=""> Importer</button>
+          </div>
+          <div id="characterSlots" class="character-slots"></div>
+        </section>
+        <section class="home-section compact-section">
+          <div class="section-head"><div><span class="eyebrow">AMBIANCE</span><h2>Schéma de couleurs</h2></div></div>
+          <div id="themeChoices" class="theme-choices"></div>
+          <p class="home-note">Le thème est local à cet appareil et ne modifie pas les données du personnage.</p>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <aside id="itemPopover" class="item-popover hidden" aria-hidden="true"></aside>
+
+  <dialog id="itemEditorDialog" class="modal wide-modal">
+    <form id="itemEditorForm">
+      <div class="modal-head"><div><span class="eyebrow">INVENTAIRE</span><h2 id="itemEditorTitle">Objet</h2></div><button type="button" class="icon-button small" data-close="itemEditorDialog"><img src="fermer.png" alt=""></button></div>
+      <input type="hidden" name="id">
+      <div class="form-grid two">
+        <label>Nom<input name="name" required></label>
+        <label>Type<select name="type" id="itemTypeSelect"></select></label>
+        <label>Rareté<input name="rarity" placeholder="Courant, rare…"></label>
+        <label>Quantité<input name="qty" type="number" min="1" value="1"></label>
+        <label class="check-label"><input name="magical" type="checkbox"> Objet magique</label>
+        <label class="check-label"><input name="attuned" type="checkbox"> Lié / harmonisé</label>
+        <label class="check-label"><input name="equipped" type="checkbox"> Équipé</label>
+        <label>Poids<input name="weight" placeholder="Ex. 1,5 kg"></label>
+        <label class="span2">Résumé<textarea name="summary" rows="2"></textarea></label>
+        <label class="span2">Effet / description<textarea name="description" rows="7"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" id="btnDeleteItem" class="danger">Supprimer</button><span></span><button type="button" class="ghost" data-close="itemEditorDialog">Annuler</button><button type="submit" class="primary">Enregistrer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="equipmentSettingsDialog" class="modal compact-modal">
+    <form id="equipmentSettingsForm">
+      <div class="modal-head"><div><span class="eyebrow">ÉQUIPEMENT</span><h2>Apparence</h2></div><button type="button" class="icon-button small" data-close="equipmentSettingsDialog"><img src="fermer.png" alt=""></button></div>
+      <div class="settings-stack">
+        <label>Couleur de surbrillance liée<input name="attuneColor" type="color" value="#c69a55"></label>
+        <button type="button" id="btnImportPortrait" class="violet"><img src="fleche_bas.png" alt=""> Importer une illustration PNG/JPEG</button>
+        <button type="button" id="btnResetPortrait" class="ghost"><img src="actualiser.png" alt=""> Revenir au portrait de démonstration</button>
+      </div>
+      <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="equipmentSettingsDialog">Annuler</button><button type="submit" class="primary">Appliquer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="noteEditorDialog" class="modal wide-modal">
+    <form id="noteEditorForm">
+      <div class="modal-head"><div><span class="eyebrow">JOURNAL</span><h2>Nouvelle note</h2></div><button type="button" class="icon-button small" data-close="noteEditorDialog"><img src="fermer.png" alt=""></button></div>
+      <div class="form-grid two"><label>Catégorie<select name="type"><option value="note">Note</option><option value="quest">Quête</option><option value="npc">PNJ</option><option value="place">Lieu</option><option value="clue">Indice</option></select></label><label>Titre<input name="title" placeholder="Facultatif"></label><label class="span2">Texte<textarea name="text" rows="8" required></textarea></label></div>
+      <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="noteEditorDialog">Annuler</button><button type="submit" class="primary">Ajouter</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="illustrationImportDialog" class="modal wide-modal">
+    <form id="illustrationImportForm">
+      <div class="modal-head"><div><span class="eyebrow">ILLUSTRATIONS</span><h2>Classer les images</h2></div><button type="button" class="icon-button small" data-close="illustrationImportDialog"><img src="fermer.png" alt=""></button></div>
+      <div id="illustrationImportRows" class="illustration-import-rows"></div>
+      <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="illustrationImportDialog">Annuler</button><button type="submit" class="violet">Importer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="illustrationCategoryDialog" class="modal compact-modal">
+    <form id="illustrationCategoryForm">
+      <div class="modal-head"><div><span class="eyebrow">ILLUSTRATIONS</span><h2>Nouvelle catégorie</h2></div><button type="button" class="icon-button small" data-close="illustrationCategoryDialog"><img src="fermer.png" alt=""></button></div>
+      <label class="solo-label">Nom<input name="name" maxlength="40" required placeholder="Ex. Alliés, cartes, indices…"></label>
+      <div class="modal-actions"><span></span><span></span><button type="button" class="ghost" data-close="illustrationCategoryDialog">Annuler</button><button type="submit" class="blue">Créer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="illustrationDeleteDialog" class="modal compact-modal">
+    <div class="modal-head"><div><span class="eyebrow">ILLUSTRATIONS</span><h2>Supprimer la sélection ?</h2><p id="illustrationDeleteMessage" class="dialog-hint"></p></div><button type="button" class="icon-button small" data-close="illustrationDeleteDialog"><img src="fermer.png" alt=""></button></div>
+    <div class="confirm-two"><button id="btnCancelIllustrationDelete" class="green">NON</button><button id="btnConfirmIllustrationDelete" class="danger">OUI</button></div>
+  </dialog>
+
+  <dialog id="searchDialog" class="modal wide-modal">
+    <div class="modal-head"><div><span class="eyebrow">RECHERCHE</span><h2>Dans le personnage</h2></div><button type="button" class="icon-button small" data-close="searchDialog"><img src="fermer.png" alt=""></button></div>
+    <input id="globalSearchInput" class="search-input" placeholder="Sort, aptitude, objet, note…">
+    <div id="globalSearchResults" class="search-results"></div>
+  </dialog>
+
+  <input id="characterImportFile" type="file" accept=".json,application/json" hidden>
+  <input id="itemImportFile" type="file" accept=".json,application/json" hidden>
+  <input id="portraitImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" hidden>
+  <input id="illustrationImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden>
+
+  <script src="app.js?v=0.1.0"></script>
+</body>
+</html>
