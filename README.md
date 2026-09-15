@@ -1,27 +1,24 @@
-# Cockpit Joueur V0.2
+# Cockpit Joueur V0.3
 
-Nouvelle maquette fonctionnelle de la console joueur, conçue comme application sœur de Cockpit MJ et optimisée pour iPad paysage.
+Application PWA hors ligne orientée joueur, optimisée pour iPad paysage et construite à partir de Cockpit Joueur V0.2.
 
-## Écrans
+## V0.3
 
-- **Fiche** : caractéristiques, sauvegardes, compétences, PV, combat et ressources.
-- **Aptitudes** : aptitudes regroupées par origine/classe/sous-classe/don/historique, avec référence rapide.
-- **Sorts** : emplacements interactifs, filtres, recherche et fiche détaillée.
-- **Inventaire** : écran séparé en deux, **Équipement à gauche / Possessions à droite**. Le PNG du personnage est placé sur le socle du fond d’écran, les trois objets liés à ses pieds, les autres équipements dessous. Les objets se déplacent par glisser-déposer.
-- **Journal** : notes éditables et export TXT.
-- **Illustrations** : bibliothèque locale avec catégories personnalisables, sélection, déplacement, suppression et partage iPad.
-
-## Fonds d’écran
-
-Sept fonds sont intégrés : Accueil, Fiche, Aptitudes, Sorts, Inventaire, Journal et Illustrations. Depuis le menu principal, chaque fond peut être remplacé par un PNG/JPEG externe ou réinitialisé au visuel d’origine. Les personnalisations sont enregistrées localement dans IndexedDB et ne sont pas incluses dans les exports JSON de personnage.
-
-## Personnages
-
-- Démo intégrée : **Wonq — Gardien des Absents**.
-- Jusqu’à 20 sauvegardes de personnages.
-- Import/export JSON.
-- Le portrait/PNG du personnage reste un média local indépendant des sauvegardes JSON.
+- 7 vues : Accueil, Fiche, Aptitudes, Sorts, Inventaire, Journal, Illustrations.
+- Interface sombre fantasy inspirée des maquettes : panneaux semi-transparents, bordures bronze/or, fonds illustrés visibles.
+- Recherche contextuelle par écran.
+- Fiche dense avec caractéristiques, sauvegardes, compétences, combat et ressources interactives.
+- Aptitudes en tiroirs avec résumé rapide et compteurs.
+- Sorts en navigateur deux colonnes avec emplacements interactifs, filtres, favoris, journal et lancement.
+- Inventaire 47/53 : équipement à gauche, possessions à droite, 3 objets liés, portrait PNG transparent avec halo réglable, drag tactile via Pointer Events, fiche contextuelle, import/export objet.
+- Journal filtrable avec saisie rapide, épinglage, édition, suppression et export TXT.
+- Illustrations en masonry, catégories personnalisées, déplacement, suppression et partage iPadOS.
+- 20 personnages utilisateur maximum + démo Wonq hors quota. Import/export JSON.
+- 5 thèmes visuels.
+- 7 fonds d’écran personnalisables localement via IndexedDB, hors sauvegardes JSON.
+- Portraits et illustrations également stockés localement dans IndexedDB.
+- PWA root-safe pour GitHub Pages et service worker tolérant aux assets optionnels manquants.
 
 ## Déploiement
 
-Tous les fichiers sont root-safe : placer directement le contenu de l’archive à la racine d’un dépôt GitHub Pages.
+Décompresser le ZIP et déposer tous les fichiers directement à la racine du dépôt GitHub Pages.

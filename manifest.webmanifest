@@ -1,15 +1,23 @@
 {
-  "name":"Cockpit Joueur V0.2",
-  "short_name":"Cockpit Joueur",
-  "description":"Console joueur D&D 5e hors ligne pour iPad : fiche, aptitudes, sorts, inventaire, journal et illustrations.",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "orientation":"landscape",
-  "background_color":"#07110f",
-  "theme_color":"#071713",
-  "icons":[
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+  "name": "Cockpit Joueur V0.3",
+  "short_name": "Cockpit Joueur",
+  "description": "Console joueur D&D 5e hors ligne pour iPad : fiche, aptitudes, sorts, inventaire, journal, illustrations et fonds personnalisables.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#07110f",
+  "theme_color": "#071713",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

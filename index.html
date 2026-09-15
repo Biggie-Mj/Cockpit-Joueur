@@ -7,81 +7,71 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Cockpit Joueur">
-  <title>Cockpit Joueur · V0.2</title>
-  <link rel="manifest" href="manifest.webmanifest?v=0.2.0">
+  <title>Cockpit Joueur · V0.3</title>
+  <link rel="manifest" href="manifest.webmanifest?v=0.3.0">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="stylesheet" href="styles.css?v=0.2.0">
+  <link rel="stylesheet" href="styles.css?v=0.3.0">
 </head>
 <body>
   <header class="topbar glass-bar">
     <div class="brand-zone">
       <img src="icon-64.png" class="brand-icon" alt="">
-      <div class="brand-copy"><strong>COCKPIT</strong><span>JOUEUR · V0.2</span></div>
+      <div class="brand-copy"><strong>COCKPIT JOUEUR</strong><span>VOS HISTOIRES PRENNENT VIE · V0.3</span></div>
     </div>
-    <div class="character-title">
-      <span>PERSONNAGE ACTIF</span>
-      <strong id="activeCharacterName">Wonq</strong>
-      <small id="activeCharacterMeta">Hadozee · Barde 8 · Collège des Esprits</small>
-    </div>
+    <div class="topbar-spacer" aria-hidden="true"></div>
     <div class="top-actions">
-      <button id="btnGlobalSearch" class="icon-button" title="Rechercher"><img src="loupe.png" alt=""></button>
-      <button id="btnHome" class="icon-button" title="Menu principal"><img src="menu_trois_points.png" alt=""></button>
+      <button id="btnGlobalSearch" class="search-trigger" aria-label="Rechercher"><img src="loupe.png" alt=""><span id="searchContextLabel">Rechercher…</span></button>
+      <button id="btnSettings" class="icon-button" title="Réglages" aria-label="Réglages"><img src="rouage.png" alt=""></button>
+      <button id="btnHome" class="icon-button" title="Menu principal" aria-label="Menu principal"><img src="menu_trois_points.png" alt=""></button>
     </div>
   </header>
 
-  <main id="sheetView" class="view-shell screen-sheet"></main>
-  <main id="featuresView" class="view-shell screen-features hidden"></main>
-  <main id="spellsView" class="view-shell screen-spells hidden"></main>
-  <main id="inventoryView" class="view-shell screen-inventory hidden"></main>
-  <main id="journalView" class="view-shell screen-journal hidden"></main>
-  <main id="illustrationsView" class="view-shell screen-illustrations hidden"></main>
+  <main id="homeView" class="view-shell screen-home" data-view="home"></main>
+  <main id="sheetView" class="view-shell screen-sheet hidden" data-view="sheet"></main>
+  <main id="featuresView" class="view-shell screen-features hidden" data-view="features"></main>
+  <main id="spellsView" class="view-shell screen-spells hidden" data-view="spells"></main>
+  <main id="inventoryView" class="view-shell screen-inventory hidden" data-view="inventory"></main>
+  <main id="journalView" class="view-shell screen-journal hidden" data-view="journal"></main>
+  <main id="illustrationsView" class="view-shell screen-illustrations hidden" data-view="illustrations"></main>
 
   <nav class="bottom-nav glass-bar" aria-label="Navigation principale">
-    <button class="nav-btn active" data-view="sheet"><span><img src="d20.png" alt=""></span><b>FICHE</b></button>
-    <button class="nav-btn" data-view="features"><span><img src="parchemin.png" alt=""></span><b>APTITUDES</b></button>
-    <button class="nav-btn" data-view="spells"><span><img src="magie.png" alt=""></span><b>SORTS</b></button>
-    <button class="nav-btn" data-view="inventory"><span><img src="objet_merveilleux.png" alt=""></span><b>INVENTAIRE</b></button>
-    <button class="nav-btn" data-view="journal"><span><img src="grimoire.png" alt=""></span><b>JOURNAL</b></button>
-    <button class="nav-btn" data-view="illustrations"><span><img src="oeil.png" alt=""></span><b>ILLUSTRATIONS</b></button>
+    <button class="nav-btn active" data-view="home"><span>🏠</span><b>ACCUEIL</b></button>
+    <button class="nav-btn" data-view="sheet"><span>👤</span><b>FICHE</b></button>
+    <button class="nav-btn" data-view="features"><span>🧬</span><b>APTITUDES</b></button>
+    <button class="nav-btn" data-view="spells"><span>🌀</span><b>SORTS</b></button>
+    <button class="nav-btn" data-view="inventory"><span>🎒</span><b>INVENTAIRE</b></button>
+    <button class="nav-btn" data-view="journal"><span>📖</span><b>JOURNAL</b></button>
+    <button class="nav-btn" data-view="illustrations"><span>🖼</span><b>ILLUSTRATIONS</b></button>
+    <img src="cockpit-logo-source.png" class="nav-medallion" alt="" aria-hidden="true">
   </nav>
 
-  <div id="homeOverlay" class="home-overlay show" aria-hidden="false">
+  <div id="homeOverlay" class="home-overlay" aria-hidden="true">
     <div id="homeBackdrop" class="home-backdrop"></div>
-    <section class="home-shell">
-      <div class="home-hero glass-panel">
-        <div class="home-brand">
-          <img src="cockpit-logo-source.png" alt="Cockpit">
-          <div><span class="eyebrow">CONSOLE JOUEUR</span><h1>Cockpit Joueur</h1><p>Une console personnelle pour jouer, gérer et conserver tout ce qui concerne ton personnage.</p></div>
-        </div>
-        <div class="home-hero-actions">
-          <button id="btnResume" class="primary big"><img src="jouer.png" alt=""> Reprendre <span id="resumeName">Wonq</span></button>
-          <button id="btnCloseHome" class="ghost big">Ouvrir la console</button>
-        </div>
-        <div id="homeQuickSummary" class="home-quick-summary"></div>
+    <section class="settings-shell">
+      <div class="settings-header glass-panel">
+        <div><span class="eyebrow">MENU PRINCIPAL</span><h1>Réglages & personnages</h1><p>Gère les personnages, l’ambiance visuelle et les fonds d’écran sans quitter ta partie.</p></div>
+        <button id="btnCloseHome" class="icon-button" aria-label="Fermer"><img src="fermer.png" alt=""></button>
       </div>
-
-      <div class="home-columns">
-        <section class="home-section glass-panel">
-          <div class="section-head"><div><span class="eyebrow">PERSONNAGES</span><h2>Personnages sauvegardés</h2></div><span id="characterSlotCount" class="counter-pill">0 / 20</span></div>
-          <div class="slot-toolbar">
-            <button id="btnSaveCharacter" class="primary"><img src="sauvegarde.png" alt=""> Sauvegarder l’état actuel</button>
-            <button id="btnImportCharacter" class="violet"><img src="fleche_bas.png" alt=""> Importer</button>
-          </div>
-          <div id="characterSlots" class="character-slots"></div>
-        </section>
-
-        <section class="home-section glass-panel compact-section">
-          <div class="section-head"><div><span class="eyebrow">AMBIANCE</span><h2>Schéma de couleurs</h2></div></div>
-          <div id="themeChoices" class="theme-choices"></div>
-          <p class="home-note">Le thème reste local à cet appareil.</p>
-        </section>
-      </div>
-
-      <section class="home-section glass-panel backgrounds-section">
-        <div class="section-head"><div><span class="eyebrow">FONDS D’ÉCRAN</span><h2>Illustrations de chaque écran</h2><p>Les fonds intégrés peuvent être remplacés par n’importe quel PNG ou JPEG de ton choix.</p></div></div>
-        <div id="backgroundRows" class="background-rows"></div>
+      <section class="home-section glass-panel" id="charactersSettingsSection">
+        <div class="section-head"><div><span class="eyebrow">PERSONNAGES</span><h2>Personnages sauvegardés</h2></div><span id="characterSlotCount" class="counter-pill">0 / 20</span></div>
+        <div class="slot-toolbar">
+          <button id="btnSaveCharacter" class="primary"><img src="sauvegarde.png" alt=""> Sauvegarder l’état actuel</button>
+          <button id="btnImportCharacter" class="violet"><img src="fleche_bas.png" alt=""> Importer</button>
+        </div>
+        <div id="characterSlots" class="character-slots"></div>
       </section>
+      <div class="settings-grid">
+        <section class="home-section glass-panel" id="themeSettingsSection">
+          <div class="section-head"><div><span class="eyebrow">AMBIANCE</span><h2>Thème visuel</h2></div></div>
+          <div id="themeChoices" class="theme-choices"></div>
+          <p class="home-note">Le thème modifie les accents, halos et contrôles, sans recolorer les illustrations.</p>
+        </section>
+        <section class="home-section glass-panel backgrounds-section" id="backgroundSettingsSection">
+          <div class="section-head"><div><span class="eyebrow">FONDS D’ÉCRAN</span><h2>Illustrations par écran</h2><p>Chaque fond peut être remplacé localement par un PNG/JPEG puis restauré.</p></div></div>
+          <div id="backgroundRows" class="background-rows"></div>
+        </section>
+      </div>
     </section>
   </div>
 
@@ -100,6 +90,9 @@
         <label class="check-label"><input name="attuned" type="checkbox"> Lié / harmonisé</label>
         <label class="check-label"><input name="equipped" type="checkbox"> Équipé</label>
         <label>Poids<input name="weight" placeholder="Ex. 1,5 kg"></label>
+        <label>Valeur<input name="value" placeholder="Ex. 250 po"></label>
+        <label>Charges actuelles<input name="charges" type="number" min="0" placeholder="—"></label>
+        <label>Charges max.<input name="maxCharges" type="number" min="0" placeholder="—"></label>
         <label class="span2">Résumé<textarea name="summary" rows="2"></textarea></label>
         <label class="span2">Effet / description<textarea name="description" rows="7"></textarea></label>
       </div>
@@ -149,6 +142,11 @@
     <div class="confirm-two"><button id="btnCancelIllustrationDelete" class="green">NON</button><button id="btnConfirmIllustrationDelete" class="danger">OUI</button></div>
   </dialog>
 
+  <dialog id="confirmDialog" class="modal compact-modal">
+    <div class="modal-head"><div><span class="eyebrow">CONFIRMATION</span><h2>Confirmer l’action</h2><p id="confirmDialogMessage" class="dialog-hint"></p></div><button type="button" class="icon-button small" data-close="confirmDialog"><img src="fermer.png" alt=""></button></div>
+    <div class="confirm-two"><button type="button" id="confirmDialogNo" class="green">NON</button><button type="button" id="confirmDialogYes" class="danger">OUI</button></div>
+  </dialog>
+
   <dialog id="searchDialog" class="modal wide-modal">
     <div class="modal-head"><div><span class="eyebrow">RECHERCHE</span><h2>Dans le personnage</h2></div><button type="button" class="icon-button small" data-close="searchDialog"><img src="fermer.png" alt=""></button></div>
     <input id="globalSearchInput" class="search-input" placeholder="Sort, aptitude, objet, note…">
@@ -161,6 +159,6 @@
   <input id="illustrationImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple hidden>
   <input id="backgroundImportFile" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" hidden>
 
-  <script src="app.js?v=0.2.0"></script>
+  <script src="app.js?v=0.3.0"></script>
 </body>
 </html>
